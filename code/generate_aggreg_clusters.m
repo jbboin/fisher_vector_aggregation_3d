@@ -17,7 +17,7 @@ sfmFPS = 3;
 % Directory containing output of SfM reconstruction for all models (used for POSE)
 sfmDir = [datasetDir '/bundler_output_3dscan_3fps'];
 
-k_range = [1, 2, 3, 4, 6, 10, 16, 25, 40, 63, 100, 158, 251, 398, 631];
+cluster_range = [1, 2, 3, 4, 6, 10, 16, 25, 40, 63, 100, 158, 251, 398, 631];
 
 %% Get database info (model IDs and number of frames)
 
@@ -55,7 +55,7 @@ endIndex = cumsum(numFrames);
 aggregClustersDir = fullfile(aggregClustersRootDir, 'aggreg_clusters_indep');
 mkdir(aggregClustersDir);
 
-for k = k_range
+for k = cluster_range
 
     disp(k)
 
@@ -93,7 +93,7 @@ disp('Generating TEMP')
 aggregClustersDir = fullfile(aggregClustersRootDir, 'aggreg_clusters_temp');
 mkdir(aggregClustersDir);
 
-for k = k_range
+for k = cluster_range
 
     disp(k)
 
@@ -133,7 +133,7 @@ rng(42)
 aggregClustersDir = fullfile(aggregClustersRootDir, 'aggreg_clusters_rand');
 mkdir(aggregClustersDir);
 
-for k = k_range
+for k = cluster_range
 
     disp(k)
 
@@ -183,7 +183,7 @@ else
     FV = double(dec2bin(data(3:end)) == '1');
     FV = reshape(FV', numGaussians * dimLDA, numDesc)';
 
-    for k = k_range
+    for k = cluster_range
 
         for model = 1:numel(numFrames)
             output = [k];
@@ -275,7 +275,7 @@ else
                 end
             end
 
-            for k = k_range
+            for k = cluster_range
                 output = [k];
                 if k < numel(validViews1FPS)
                     opts = statset('Display','final');
@@ -299,7 +299,7 @@ else
             end
         
         else
-            for k = k_range
+            for k = cluster_range
                 output = [k];
                 for j = 1:k
                     output = [output; 1; 1];
