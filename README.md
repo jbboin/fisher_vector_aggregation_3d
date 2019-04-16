@@ -13,12 +13,14 @@ Image, Video and Multimedia Systems Group, Stanford University
 - ImageMagick
 - Dependencies of other projects that this project depends on ([videosearch ](https://github.com/andrefaraujo/videosearch), [Bundler](https://github.com/snavely/bundler_sfm))
 
-**Step 1**: Clone the repository (`$ROOT` is the path where the repository will be downloaded):
+**Step 1**: Clone the repository.
 
-    $ cd $ROOT
     $ git clone https://github.com/jbboin/fisher_vector_aggregation_3d.git
 
-**Step 2**: Follow the instructions at the [videosearch repository](https://github.com/andrefaraujo/videosearch) to build and install our modified version of the `videosearch` project, located at `$ROOT/fisher_vector_aggregation_3d/videosearch`.
+**Step 2**: The implementation that we use for the Fisher vector framework is based on the one by Araujo et al.: [videosearch repository](https://github.com/andrefaraujo/videosearch), with some minor modifications. We included a build script that should build all the executables that you will need for our project. If you have any issue with the build, please refer to the documentation in the original repository instead. The build script can be run with the following commands.
+
+    $ cd fisher_vector_aggregation_3d/videosearch
+    $ ./build.sh
 
 **Step 3** (optional): If you are planning to run POSE aggregation, you will need a structure-from-motion system. Our project uses [Bundler](https://github.com/snavely/bundler_sfm), which has to be downloaded and installed on your system.
 
@@ -27,7 +29,7 @@ Image, Video and Multimedia Systems Group, Stanford University
 
 **Step 1**: Navigate to the code part of the repository and copy the `config.example.py` file to your own `config.py` file that will contain your own system-dependent paths that the project will use.
 
-    $ cd $ROOT/fisher_vector_aggregation_3d/code
+    $ cd fisher_vector_aggregation_3d/code
     $ cp config.example.py config.py
 
 **Step 2**: Run the following two scripts to download the Sculptures dataset and organize it to the desired format. The database part of the Sculptures dataset is obtained from the [RGB-D dataset by Choi et al.](http://redwood-data.org/3dscan/). The queries were captured by the authors of this project and are included in the current repository.
