@@ -58,6 +58,7 @@ def parse_arguments():
 
 
 def main(args):
+    videosearch_dir = '../videosearch'
     shot_frames_dir = 'shot_list_frames'
     results_dir = 'results'
     joint_index_name = 'joint_index_%d.sift_scfv_idx'
@@ -72,10 +73,10 @@ def main(args):
     if args.extract_global:
         for numFilesInSeq in args.cluster_range:
             extract_global.generateCustomShotLists(args.output_dir, db_dir, shot_frames_dir, numFilesInSeq)
-            extract_global.generateGlobalFeatureAggregation(config.VIDEOSEARCH_DIR, args.output_dir, config.DATASET_DIR, args.custom_shot_dir, numFilesInSeq, joint_index_name % numFilesInSeq, args.gaussians, args.sift_mode, args.num_threads)
+            extract_global.generateGlobalFeatureAggregation(videosearch_dir, args.output_dir, config.DATASET_DIR, args.custom_shot_dir, numFilesInSeq, joint_index_name % numFilesInSeq, args.gaussians, args.sift_mode, args.num_threads)
 
     if args.run_retriever:
-        retrieval.retrieveParallelFeatureAggregation(config.VIDEOSEARCH_DIR, args.output_dir, joint_index_name, db_dir, query_dir, shot_frames_dir, results_dir, output_file, args.cluster_range, args.gaussians, args.sift_mode, args.num_threads)
+        retrieval.retrieveParallelFeatureAggregation(videosearch_dir, args.output_dir, joint_index_name, db_dir, query_dir, shot_frames_dir, results_dir, output_file, args.cluster_range, args.gaussians, args.sift_mode, args.num_threads)
 
     if args.merge_results:
         retrieval.postProcess(args.output_dir, results_dir, output_res, output_file, args.cluster_range)

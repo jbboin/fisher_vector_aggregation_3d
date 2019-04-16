@@ -20,10 +20,11 @@ def parse_arguments():
 
 
 def main(args):
+    videosearch_dir = '../videosearch'
     db_dir = os.path.join(config.DATASET_DIR, 'model_frames')
     query_dir = os.path.join(config.DATASET_DIR, 'queries')
-    extract_sift.extract(config.VIDEOSEARCH_DIR, db_dir, args.sift_mode, args.num_threads)
-    extract_sift.extract(config.VIDEOSEARCH_DIR, query_dir, args.sift_mode, args.num_threads)
+    extract_sift.extract(videosearch_dir, db_dir, args.sift_mode, args.num_threads)
+    extract_sift.extract(videosearch_dir, query_dir, args.sift_mode, args.num_threads)
     extract_global.generateFrameLists(config.DATASET_DIR)
 
 if __name__ == '__main__':
