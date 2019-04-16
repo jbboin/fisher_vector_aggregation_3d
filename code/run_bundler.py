@@ -121,6 +121,10 @@ def sift_images(images, verbose=False, parallel=True):
             BIN_SIFT = os.path.join(BIN_PATH, "siftWin32.exe")
         else:
             BIN_SIFT = os.path.join(BIN_PATH, "sift")
+        assert os.path.exists(BIN_SIFT), \
+            'The SIFT executable was not found. Please check that '\
+            'the path defined for BUNDLER_DIR in config.py is correct. '\
+            '(It should be an absolute path).'
         
     if parallel:
         pool = multiprocessing.Pool()
