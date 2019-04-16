@@ -28,6 +28,11 @@ fi
 wget -N -P indexer/local_descriptors http://www.irisa.fr/texmex/people/jegou/src/$desc_bin
 chmod a+x indexer/local_descriptors/$desc_bin
 
+# Build global descriptors extractor
+cd indexer/global_descriptors
+make
+cd ../..
+
 # Build retriever
 cd retriever
 make
