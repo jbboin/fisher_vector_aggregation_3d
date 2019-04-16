@@ -10,12 +10,12 @@ aggregClustersRootDir = [datasetDir '/aggreg_clusters'];
 mkdir(aggregClustersRootDir);
 
 % File containing the FVs for all frames (used for SIM)
-frameFvsFile = [outputDir '/output_128_gauss_frame/global_descriptors.txt'];
+frameFvsFile = [outputDir '/output_frame_descriptors/global_descriptors.txt'];
 
 % Frame-rate used for SfM reconstruction (used for POSE)
 sfmFPS = 3;
 % Directory containing output of SfM reconstruction for all models (used for POSE)
-sfmDir = [datasetDir '/bundler_output_3dscan_3fps'];
+sfmDir = [datasetDir '/bundler_output_3fps'];
 
 cluster_range = [1, 2, 3, 4, 6, 10, 16, 25, 40, 63, 100, 158, 251, 398, 631];
 
