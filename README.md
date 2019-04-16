@@ -32,6 +32,13 @@ Image, Video and Multimedia Systems Group, Stanford University
     $ cd fisher_vector_aggregation_3d/code
     $ cp config.example.py config.py
 
+You will need to populate this new file with your own desired paths.
+**NOTE:** The paths should be absolute paths.
+- `BUNDLER_DIR`: Root directory of the Bundler install.
+- `DATASET_DIR`: Directory where the dataset will be downloaded to and where the generated files needed for that dataset will be saved (local features, cluster data, Bundler output, etc.).
+- `OUTPUT_DIR`: Directory where the retrieval indexes and the results will be saved.
+
+
 **Step 2**: Run the following two scripts to download the Sculptures dataset and organize it to the desired format. The database part of the Sculptures dataset is obtained from the [RGB-D dataset by Choi et al.](http://redwood-data.org/3dscan/). The queries were captured by the authors of this project and are included in the current repository.
 
     $ python download_sculpture_dataset.py
@@ -71,12 +78,12 @@ The following script will run the structure-from-motion reconstruction on all ob
 
     $python run_bundler.py
 
-NOTE: This may take a very long time to run, especially for the objects with long videos.
+**NOTE:** This may take a very long time to run, especially for the objects with long videos.
 
 
 ## Generate cluster data
 
-Now we can generate cluster data (assignment of clusters to a set of frames for each object) by running the MATLAB script `generate_aggreg_clusters`. The clusters for INDEP, TEMP and RAND will be generated, as well as SIM and POSE if the code in the previous section was run. A cluster assignment is generated for each of the values given in the list `k_range`, In that script, the list `cluster_range` defines the list of values for the number of clusters per input object. Each value will generate a different cluster assignment for each object.
+Now we can generate cluster data (assignment of clusters to a set of frames for each object) by running the MATLAB script `generate_aggreg_clusters.m`. The clusters for INDEP, TEMP and RAND will be generated, as well as SIM and POSE if the code in the previous section was run. In that script, the list `cluster_range` defines the list of values for the number of clusters per input object. Each value will generate a different cluster assignment for each object.
 
 
 ## Run retrieval evaluation
@@ -94,7 +101,7 @@ And (if applicable) the retrieval using our methods (SIM and POSE) can be perfor
 
 For each method, a separate directory will be created in the `OUTPUT_DIR` defined in `config.py`. The results are compiled in the file `results/out_results.txt`. Each line of that file corresponds to a different value of the number of clusters used per object (defined in `cluster_range`) and contains 3 values: the number of clusters per object, the mean precision at 1 and the mAP.
 
-NOTE: Because of variations in the libraries you may be using and of the stochastic nature of the clustering algorithm for POSE and SIM, your results are unlikely to perfectly match ours. However they should be close enough for all practical purposes.
+**NOTE:** Because of variations in the libraries you may be using and of the stochastic nature of the clustering algorithm for POSE and SIM, your results are unlikely to perfectly match ours. However they should be close enough for all practical purposes.
 
 
 ## Citation
