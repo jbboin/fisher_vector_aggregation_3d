@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 OUTPUT_DIR="$(python -c 'import config;print(config.OUTPUT_DIR)')"
 
 ./export_global_descriptors/export_global_descriptors \

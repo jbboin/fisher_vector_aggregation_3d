@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 DATASET_DIR="$(python -c 'import config;print(config.DATASET_DIR)')"
 OUTPUT_DIR="$(python -c 'import config;print(config.OUTPUT_DIR)')"
 

@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
 
 # Build VLFEAT library
 cd common/vlfeat-0.9.18
