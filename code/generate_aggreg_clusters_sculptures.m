@@ -17,7 +17,7 @@ sfmFPS = 3;
 % Directory containing output of SfM reconstruction for all models (used for POSE)
 sfmDir = [datasetDir '/bundler_output_3fps'];
 
-cluster_range = [1, 2, 3, 4, 6, 10, 16, 25, 40, 63, 100, 158, 251, 398, 631];
+cluster_range = [1, 2, 3, 4, 6, 10, 16, 25, 40, 63, 100, 158, 251, 398, 600];
 
 %% Get database info (model IDs and number of frames)
 
