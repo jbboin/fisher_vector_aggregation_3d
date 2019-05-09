@@ -7,6 +7,10 @@ By Jean-Baptiste Boin, in collaboration with Andr&eacute; Araujo, Lamberto Balla
 Image, Video and Multimedia Systems Group, Stanford University
 
 
+This repository contains the code that was used for the work: J. B. Boin, A. Araujo, L. Ballan and B. Girod. "Effective Fisher Vector Aggregation for 3D Object Retrieval", in Proc. ICASSP, 2017. The dataset that was used for this work was the Sculptures dataset.
+We also provide scripts to run on a different dataset, the [BigBIRD dataset](http://rll.berkeley.edu/bigbird/). For that dataset, the camera poses are already known so the structure-from-motion step is not required for the POSE aggregation method.
+
+
 ## Install prerequisites
 
 **Prerequisites**:
@@ -22,7 +26,7 @@ Image, Video and Multimedia Systems Group, Stanford University
     $ cd fisher_vector_aggregation_3d/videosearch
     $ ./build.sh
 
-**Step 3** (optional): If you are planning to run POSE aggregation, you will need a structure-from-motion system. Our project uses [Bundler](https://github.com/snavely/bundler_sfm), which has to be downloaded and installed on your system.
+**Step 3** (optional): If you are planning to run POSE aggregation on the Sculptures dataset, you will need a structure-from-motion system. Our project uses [Bundler](https://github.com/snavely/bundler_sfm), which has to be downloaded and installed on your system.
 
 
 ## Prepare dataset
@@ -34,15 +38,22 @@ Image, Video and Multimedia Systems Group, Stanford University
 
 You will need to populate this new file with your own desired paths.
 **NOTE:** The paths should be absolute paths.
-- `BUNDLER_DIR`: Root directory of the Bundler install.
+- `BUNDLER_DIR`: Root directory of the Bundler install (only used if running POSE on the Sculptures dataset).
 - `DATASET_DIR`: Directory where the dataset will be downloaded to and where the generated files needed for that dataset will be saved (local features, cluster data, Bundler output, etc.).
 - `OUTPUT_DIR`: Directory where the retrieval indexes and the results will be saved.
 
 
-**Step 2**: Run the following two scripts to download the Sculptures dataset and organize it to the desired format. The database part of the Sculptures dataset is obtained from the [RGB-D dataset by Choi et al.](http://redwood-data.org/3dscan/). The queries were captured by the authors of this project and are included in the current repository.
+**Step 2**: Run the following two scripts to download the desired dataset and organize it to the desired format.
 
-    $ python download_sculpture_dataset.py
-    $ python format_sculpture_dataset.py
+The commands below will be used for the Sculptures dataset. The database part of the Sculptures dataset is obtained from the [RGB-D dataset by Choi et al.](http://redwood-data.org/3dscan/). The queries were captured by the authors of this project and are included in the current repository.
+
+    $ python download_sculptures_dataset.py
+    $ python format_sculptures_dataset.py
+
+The commands below will be used for the BigBIRD dataset.
+
+    $ python download_bigbird_dataset.py
+    $ python format_bigbird_dataset.py
 
 **Step 3**: Run the following script to extract the local features for all the images in the dataset.
 
@@ -72,7 +83,7 @@ Run these steps if you want to evaluate Fisher vector aggregation under the SIM 
 
 ### POSE
 
-Run this step if you want to evaluate Fisher vector aggregation under the POSE condition.
+Run this step if you want to evaluate Fisher vector aggregation under the POSE condition on the Sculptures dataset.
 
 The following script will run the structure-from-motion reconstruction on all objects using Bundler.
 
@@ -83,18 +94,18 @@ The following script will run the structure-from-motion reconstruction on all ob
 
 ## Generate cluster data
 
-Now we can generate cluster data (assignment of clusters to a set of frames for each object) by running the MATLAB script `generate_aggreg_clusters.m`. The clusters for INDEP, TEMP and RAND will be generated, as well as SIM and POSE if the code in the previous section was run. In that script, the list `cluster_range` defines the list of values for the number of clusters per input object. Each value will generate a different cluster assignment for each object.
+Now we can generate cluster data (assignment of clusters to a set of frames for each object) by running the MATLAB script `generate_aggreg_clusters_sculptures.m` or `generate_aggreg_clusters_bigbird.m`, depending on the dataset you are using. The clusters for INDEP, RAND and TEMP (Sculptures dataset only) will be generated, as well as SIM and POSE if the code in the previous section was run. In that script, the list `cluster_range` defines the list of values for the number of clusters per input object. Each value will generate a different cluster assignment for each object.
 
 
 ## Run retrieval evaluation
 
-Finally we can run the aggregation and evaluation script for each aggregation method. This is done with the script `retrieval_main.py`, which can be run with different parameters. For simplicity, we provide scripts that allow reproducing the results obtained in the paper. Thus the baseline methods we reported can be run with the scripts:
+Finally we can run the aggregation and evaluation script for each aggregation method. This is done with the script `retrieval_main.py`, which can be run with different parameters. For simplicity, we provide scripts that allow reproducing the results obtained in the paper. Thus the baseline methods we reported can be run with the scripts below (note: the TEMP script will not run for the BigBIRD dataset as this method is not defined):
 
     $ ./retrieve_indep.sh
-    $ ./retrieve_temp.sh
     $ ./retrieve_rand.sh
+    $ ./retrieve_temp.sh
 
-And (if applicable) the retrieval using our methods (SIM and POSE) can be performed with the scripts:
+And (if applicable) retrieval using our methods (SIM and POSE) can be performed with the scripts:
 
     $ ./retrieve_sim.sh
     $ ./retrieve_pose.sh
