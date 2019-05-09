@@ -2,7 +2,7 @@ import subprocess, os, shutil, random
 
 MODEL_FRAMES = 'model_frames'
 MODEL_FRAMES_LISTS = 'model_frames_lists'
-MODEL_INDEXES_DIR = 'model_indexes'
+MODEL_INDEXES_DIR = 'model_indexes_%d'
 VERBOSE = 1
 SHOT_KEYF=-1
 
@@ -39,10 +39,10 @@ def generateCustomShotLists(OUTPUT_DIR, INPUT_DIR, SHOT_FRAMES_DIR, numFilesInSe
 def generateGlobalFeatureAggregation(VIDEOSEARCH_DIR, OUTPUT_DIR, INPUT_DIR, CUSTOM_SHOT_DIR, numFilesInSequence, JOINT_INDEX_NAME, GAUSSIANS, SIFT_MODE, NUM_THREADS):
 	modelFramesListsPath = os.path.join(INPUT_DIR, MODEL_FRAMES_LISTS)
         modelDirPath = os.path.join(INPUT_DIR, MODEL_FRAMES)
-	modelIndexesDirPath = os.path.join(OUTPUT_DIR, MODEL_INDEXES_DIR)
+	modelIndexesDirPath = os.path.join(OUTPUT_DIR, MODEL_INDEXES_DIR % numFilesInSequence)
 	if not os.path.exists(modelIndexesDirPath):
 		os.makedirs(modelIndexesDirPath)
-	LIST_INDEXES = 'list_indexes.txt'
+	LIST_INDEXES = 'list_indexes_%d.txt' % numFilesInSequence
 	gdindexPath = '%s/indexer/global_descriptors/trained_parameters' % VIDEOSEARCH_DIR
 	
 	for model in sorted(os.listdir(modelDirPath)):
@@ -76,7 +76,7 @@ def generateGlobalFeatureAggregation(VIDEOSEARCH_DIR, OUTPUT_DIR, INPUT_DIR, CUS
 def generateGlobalFeatureFrame(VIDEOSEARCH_DIR, OUTPUT_DIR, INPUT_DIR, JOINT_INDEX_NAME, GAUSSIANS, SIFT_MODE, NUM_THREADS):
 	modelFramesListsPath = os.path.join(INPUT_DIR, MODEL_FRAMES_LISTS)
         modelDirPath = os.path.join(INPUT_DIR, MODEL_FRAMES)
-	modelIndexesDirPath = os.path.join(OUTPUT_DIR, MODEL_INDEXES_DIR)
+	modelIndexesDirPath = os.path.join(OUTPUT_DIR, MODEL_INDEXES_DIR % 0)
 	if not os.path.exists(modelIndexesDirPath):
 		os.makedirs(modelIndexesDirPath)
 	LIST_INDEXES = 'list_indexes.txt'
